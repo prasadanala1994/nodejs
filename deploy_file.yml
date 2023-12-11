@@ -1,0 +1,21 @@
+---
+- name: Copy and Move File
+  hosts: local
+  gather_facts: false
+  tasks:
+    - name: Copy file to VPN server temporary folder
+      ansible.builtin.copy:
+        src: /home/wifidabba/ansible/app3.js
+        dest: /tmp/app3.js  # The temporary folder on the VPN server
+      delegate_to: vpnserver
+
+- name: Move file from VPN server to web server
+  hosts: vpnserver
+  gather_facts: false
+  tasks:
+    - name: Move file to web server
+      ansible.builtin.shell:
+        cmd: "sshpass -p'wifidabba' scp /tmp/app3.js wifidabba@10.0.0.18:/home/wifidabba/helloworld.js"
+    - name: Restart the PM2 process on the web server
+      ansible.builtin.shell:
+        cmd: "sshpass -p 'wifidabba' ssh wifidabba@10.0.0.18 'source /home/wifidabba/.nvm/nvm.sh && nvm use 20.9.0 && pm2 restart /home/wifidabba/helloworld.js'"
