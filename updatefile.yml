@@ -6,7 +6,7 @@
   tasks:
     - name: Copy file to remote server for Node1
       ansible.builtin.copy:
-        src: /app2.js  # Update with the actual path of your file
+        src: app2.js  # Update with the actual path of your file
         dest: /root/app1.js  # Update with the destination path on remote server for Node1
 
     - name: Start PM2 for Node1
