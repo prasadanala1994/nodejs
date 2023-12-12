@@ -5,7 +5,7 @@
   tasks:
     - name: Copy file to VPN server temporary folder
       ansible.builtin.copy:
-        src: /home/wifidabba/ansible/nodejs/app3.js
+        src: app3.js
         dest: /tmp/app3.js  # The temporary folder on the VPN server
       delegate_to: vpnserver
 
