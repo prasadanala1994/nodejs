@@ -1,0 +1,14 @@
+---
+- name: Copy file and start PM2 for Node1 and Node2
+  hosts: server_group
+  become: true  # Run tasks with sudo privileges
+
+  tasks:
+    - name: Copy file to remote server for Node1
+      ansible.builtin.copy:
+        src: /root/app2.js  # Update with the actual path of your file
+        dest: /root/app1.js  # Update with the destination path on remote server for Node1
+
+    - name: Start PM2 for Node1
+      ansible.builtin.shell:
+        cmd: pm2 restart app1.js
